@@ -57,46 +57,13 @@
 </head>
 <body ng-cloak>
 
-	<input custom-checkbox type="checkbox" id="cb" ng-model="cbValue" label="Check me" />
+	<input custom-checkbox type="checkbox" id="cb" ng-model="cbValue" label="Check me" ng-change="changeFn()" />
+
+	<p><b>ngModel value:</b> {{cbValue}}</p>
 
 	<p><button ng-click="cbValue = !cbValue">Toggle Checkbox</button></p>
 
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular.min.js"></script>
-<script>
-	var myApp = angular.module('myApp',[]);
-
-	myApp.directive('customCheckbox', [function() {
-		var _link = function($scope, element, attrs) {
-			var label = angular.element('<label class="customCheckbox-label" />'),
-				fauxCheckbox = angular.element('<span class="customCheckbox-faux" />'),
-				labelText = angular.element('<span class="customCheckbox-label-text">' + attrs.label + '</span>');
-
-			element.after(label);
-
-			label
-				.prepend(element)
-				.append(fauxCheckbox)
-				.append(labelText);
-
-			$scope.$watch('ngModel', function(newVal, oldVal) {
-				if ($scope.ngModel) {
-					fauxCheckbox.addClass('checked');
-				} else {
-					fauxCheckbox.removeClass('checked');
-				}
-			}, false);
-		};
-
-		return {
-			restrict: 'A',
-			replace: true,
-			scope: {
-				ngModel: '=',
-				label: '@'
-			},
-			link: _link
-		};
-	}]);
-</script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular.min.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
