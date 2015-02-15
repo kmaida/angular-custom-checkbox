@@ -1,43 +1,28 @@
 var myApp = angular.module('myApp',[]);
 
 myApp.controller('MainCtrl', ['$scope', function($scope) {
+	$scope.changeCounter = 0;
+
 	$scope.changeFn = function() {
-		alert('changed!');
+		console.log('Custom checkbox value changed!');
+		$scope.changeCounter ++;
 	};
 }]);
 
 myApp.directive('customCheckbox', [function() {
-	var _link = function($scope, element, attrs) {
-		var label = angular.element('<label class="customCheckbox-label" />'),
-			fauxCheckbox = angular.element('<span class="customCheckbox-faux" />'),
-			labelText = angular.element('<span class="customCheckbox-label-text">' + attrs.label + '</span>');
-
-		element.after(label);
-
-		label
-			.prepend(element)
-			.append(fauxCheckbox)
-			.append(labelText);
-
-		$scope.$watch('ngModel', function(newVal, oldVal) {
-			if ($scope.ngModel) {
-				fauxCheckbox.addClass('checked');
-			} else {
-				fauxCheckbox.removeClass('checked');
-			}
-		}, false);
-	};
-
 	return {
-		restrict: 'A',
+		restrict: 'E',
 		replace: true,
 		scope: {
-			ngModel: '=',
+			checkboxId: '@',
+			model: '=',
 			label: '@',
-			ngChange: '&',
-			ngTrueValue: '=',
-			ngFalseValue: '='
+			onClick: '&'
 		},
-		link: _link
+		template:   '<label class="customCheckbox-label">' +
+						'<input id="{{checkboxId}}" class="customCheckbox-input" type="checkbox" ng-model="model" />' +
+						'<span class="customCheckbox-faux" ng-class="{checked: !!model}" ng-click="onClick()"></span>' +
+						'<span class="customCheckbox-label-text" ng-click="onClick()">{{label}}</span>' +
+					'</label>'
 	};
 }]);
