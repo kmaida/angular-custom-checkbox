@@ -10,6 +10,19 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
 }]);
 
 myApp.directive('customCheckbox', [function() {
+	var _templateFn = function(tElem, tAttrs) {
+		var inputID = tAttrs.checkboxId ? ' id={{checkboxId}}' : '',
+			trueVal = tAttrs.trueValue ? ' ng-true-value="\'{{trueValue}}\'"' : '',
+			falseVal = tAttrs.falseValue ? ' ng-false-value="\'{{falseValue}}\'"' : '',
+			inputElem = '<input' + inputID + ' class="customCheckbox-input" type="checkbox" ng-model="model"' + trueVal + falseVal + ' />',
+			onClick = tAttrs.onClick ? ' ng-click="onClick()"' : '',
+			checkedClass = (tAttrs.trueValue) ? '{checked: model == trueValue}' : '{checked: model}',
+			fauxCheckbox = '<span class="customCheckbox-faux" ng-class="' + checkedClass + '"' + onClick + '></span>',
+			labelTxt = tAttrs.label ? '<span class="customCheckbox-label-text"' + onClick + '>{{label}}</span>' : '';
+
+		return '<label class="customCheckbox-label">' + inputElem + fauxCheckbox + labelTxt + '</label>';
+	};
+
 	return {
 		restrict: 'E',
 		replace: true,
@@ -17,12 +30,10 @@ myApp.directive('customCheckbox', [function() {
 			checkboxId: '@',
 			model: '=',
 			label: '@',
-			onClick: '&'
+			onClick: '&',
+			trueValue: '=',
+			falseValue: '='
 		},
-		template:   '<label class="customCheckbox-label">' +
-						'<input id="{{checkboxId}}" class="customCheckbox-input" type="checkbox" ng-model="model" />' +
-						'<span class="customCheckbox-faux" ng-class="{checked: !!model}" ng-click="onClick()"></span>' +
-						'<span class="customCheckbox-label-text" ng-click="onClick()">{{label}}</span>' +
-					'</label>'
+		template: _templateFn
 	};
 }]);

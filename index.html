@@ -17,11 +17,15 @@
 		*, *:before, *:after {
 			box-sizing: border-box;
 		}
+
+		/*-- Demo styles --*/
+
 		body {
 			font: normal 14px Helvetica, Arial, sans-serif;
 		}
-		label {
-			cursor: pointer;
+		.wrapper {
+			margin: 0 auto 1em;
+			max-width: 800px;
 		}
 		.wrapper-customCheckbox {
 			border: 1px solid #ccc;
@@ -29,7 +33,27 @@
 			margin: 15px 0 0;
 			padding: 10px;
 		}
-		.customCheckbox-input {
+		code,
+		pre {
+			background: #efefef;
+			border-radius: 3px;
+			display: inline-block;
+			font: normal 12px consolas, 'Courier New', courier;
+			padding: 1px 3px;
+		}
+		pre {
+			display: block;
+			margin: 10px 0;
+			padding: 12px 12px 0;
+			text-align: left;
+		}
+
+		/*-- Custom checkbox styles --*/
+
+		label {
+			cursor: pointer;
+		}
+		input[type="checkbox"] {
 			position: absolute;
 			left: -9999px;
 		}
@@ -63,25 +87,85 @@
 </head>
 <body ng-cloak ng-controller="MainCtrl">
 
-	<label for="checkbox1" ng-click="changeFn()">Label outside directive template</label><br/>
+	<div class="wrapper">
+		<h1>Example 1</h1>
 
-	<div class="wrapper-customCheckbox">
-		<custom-checkbox
-				checkbox-id="checkbox1"
-				model="cbValue"
-				label="Check Me"
-				on-click="changeFn()">
-		</custom-checkbox>
+		<p>
+			This example executes a function when the checkbox is changed (<code>ng-click</code> instead of
+			<code>ng-change</code> necessary because <code>ng-change</code> only responds to
+		direct user interactions). The checkbox uses default <code>true</code> | <code>false</code> values.
+		</p>
+
+		<label for="checkbox1" ng-click="changeFn()">Label outside directive template</label><br/>
+
+		<div class="wrapper-customCheckbox">
+			<custom-checkbox
+					checkbox-id="checkbox1"
+					model="cbValue"
+					label="Check Me"
+					on-click="changeFn()"
+					>
+			</custom-checkbox>
+		</div>
+
+		<p>
+			<button ng-click="cbValue = !cbValue; changeFn()">Toggle checkbox via JS</button>
+		</p>
+
+		<p>
+			<strong>ngModel value:</strong> {{cbValue}}<br/>
+			<strong>Checkbox toggled:</strong> {{changeCounter}} times
+		</p>
+
+				<pre>
+&lt;label for="checkbox1" ng-click="changeFn()">Label outside directive template&lt;/label&gt;
+
+&lt;custom-checkbox checkbox-id="checkbox1"
+	model="cbValue"
+	label="Check Me"
+	on-click="changeFn()"
+	&gt;
+&lt;/custom-checkbox&gt;
+
+&lt;button ng-click="cbValue = !cbValue; changeFn()">Toggle checkbox via JS&lt;/button&gt;
+		</pre>
 	</div>
 
-	<p>
-		<button ng-click="cbValue = !cbValue; changeFn()">Toggle checkbox via JS</button>
-	</p>
+	<div class="wrapper">
+		<h1>Example 2</h1>
 
-	<p>
-		<strong>ngModel value:</strong> {{cbValue}}<br/>
-		<strong>Checkbox toggled:</strong> {{changeCounter}} times
-	</p>
+		<p>
+			This example uses <code>ng-true-value</code> and <code>ng-false-value</code> on the generated checkbox to
+			use non-standard values when the checkbox is toggled. Adjust all functions accordingly.
+		</p>
+
+		<div class="wrapper-customCheckbox">
+			<custom-checkbox
+				checkbox-id="checkbox2"
+				model="cb2Value"
+				label="Toggle Me"
+				true-value="'truthy'"
+				false-value="0"
+				>
+			</custom-checkbox>
+		</div>
+
+		<p>
+			<strong>ngModel value:</strong> {{cb2Value}}
+		</p>
+
+		<pre>
+&lt;custom-checkbox
+	checkbox-id="checkbox2"
+	model="cb2Value"
+	label="Toggle Me"
+	true-value="'truthy'"
+	false-value="0"
+	&gt;
+&lt;/custom-checkbox&gt;
+		</pre>
+	</div>
+	</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular.min.js"></script>
 <script src="app.js"></script>
