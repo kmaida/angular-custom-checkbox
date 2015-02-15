@@ -1,8 +1,8 @@
 # angular-custom-inputs
 
-Two simple directives to create custom checkboxes and radio buttons. Behavior mimics standard input behaviors except 
-for `ng-change`, which no longer functions because it is only triggered by direct user interactions. Using a `$watch`
- is recommended instead.
+These are two simple directives to create custom checkboxes and radio buttons. Behavior mimics standard input behaviors 
+except for `ng-change`, which no longer functions because it is only triggered by direct user interactions. Using a 
+`$watch` is recommended instead.
 
 * Wraps input and custom "faux" input in a label (supports text if provided via attribute)
 * Generates faux input as a `span` that can be styled accordingly
@@ -37,7 +37,7 @@ for `ng-change`, which no longer functions because it is only triggered by direc
 
 * `form-name` (*string*) The `name` of the rendered input element
 * `checkbox-id` (*string*) The HTML ID of the rendered input element
-* `model` (*string* / `$scope` variable) The `ng-model` of the rendered input (required)
+* `model` (*string* / *`$scope` variable*) The `ng-model` of the rendered input (required)
 * `label` (*string*) Text that goes inside the wrapping `label` element
 * `true-value` ('*string*' or *integer*) The `ng-true-value` of the rendered input
 * `false-value` ('*string*' or *integer*) The `ng-false-value` of the rendered input (truthy/falsy)
@@ -80,7 +80,7 @@ myApp.controller('CheckboxCtrl', ['$scope', function($scope) {
 
 * `form-name` (*string*) The `name` of the rendered input element
 * `radio-id` (*string*) The HTML ID of the rendered input element
-* `model` (*string* / `$scope` variable) The `ng-model` of the rendered input (required)
+* `model` (*string* / *`$scope` variable*) The `ng-model` of the rendered input (required)
 * `label` (*string*) Text that goes inside the wrapping `label` element
 * `radio-value` (*string*) The `value` of the rendered input -OR-
 * `special-value` (*string* / `$scope` object) The `ng-value` of the rendered input
