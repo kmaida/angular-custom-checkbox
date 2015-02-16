@@ -15,7 +15,7 @@ myApp.controller('RadioCtrl', ['$scope', function($scope) {
 	$scope.color = 'red';
 	$scope.specialVal = {'id': 123, 'color': 'blue'};
 
-	$scope.$watch('radioValue', function(newVal, oldVal) {
+	$scope.$watch('color', function(newVal, oldVal) {
 		if (newVal !== oldVal) {
 			console.log('Custom radio value changed!', $scope.color);
 		}
