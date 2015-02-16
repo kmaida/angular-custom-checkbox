@@ -46,9 +46,9 @@ except for `ng-change`, which no longer functions because it is only triggered b
 
 ```
 myApp.controller('CheckboxCtrl', ['$scope', function($scope) {
-	$scope.$watch('cbValue', function (newVal, oldVal) {
+	$scope.$watch('cbDefaultValue', function (newVal, oldVal) {
 		if (newVal !== oldVal) {
-			console.log('Custom checkbox value changed!', $scope.cbValue);
+			console.log('Custom checkbox value changed!', $scope.cbDefaultValue);
 		}
 	}, false);
 }]);
@@ -92,7 +92,7 @@ myApp.controller('RadioCtrl', ['$scope', function($scope) {
 	$scope.color = 'red';   // default selected color
 	$scope.specialVal = {'id': 123, 'color': 'blue'};
 
-	$scope.$watch('radioValue', function(newVal, oldVal) {
+	$scope.$watch('color', function(newVal, oldVal) {
 		if (newVal !== oldVal) {
 			console.log('Custom radio value changed!', $scope.color);
 		}
