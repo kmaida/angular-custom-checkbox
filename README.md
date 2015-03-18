@@ -13,6 +13,14 @@ except for `ng-change`, which no longer functions because it is only triggered b
 * Supports `ng-value` (radios)
 * Examples available in the `index.html` file
 
+## Inject `customInputs` module
+
+To use the custom input directives, include the `customInputs.js` file in your app and inject the `customInputs` module:
+
+```
+angular.module('myApp', ['customInputs'])
+```
+
 ## Custom Checkbox
 
 ```
